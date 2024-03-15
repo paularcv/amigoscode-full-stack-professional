@@ -19,18 +19,14 @@ public class CustomerListDataAccessService implements CustomerDao {
                 1,
                 "Alex",
                 "alex@gmail.com",
-                "password",
-                21,
-                Gender.MALE);
+                21);
         customers.add(alex);
 
         Customer jamila = new Customer(
                 2,
                 "Jamila",
                 "jamila@gmail.com",
-                "password",
-                19,
-                Gender.MALE);
+                19);
         customers.add(jamila);
     }
 
@@ -52,7 +48,7 @@ public class CustomerListDataAccessService implements CustomerDao {
     }
 
     @Override
-    public boolean existsCustomerWithEmail(String email) {
+    public boolean existsPersonWithEmail(String email) {
         return customers.stream()
                 .anyMatch(c -> c.getEmail().equals(email));
     }
@@ -74,18 +70,6 @@ public class CustomerListDataAccessService implements CustomerDao {
     @Override
     public void updateCustomer(Customer customer) {
         customers.add(customer);
-    }
-
-    @Override
-    public Optional<Customer> selectUserByEmail(String email) {
-        return customers.stream()
-                .filter(c -> c.getUsername().equals(email))
-                .findFirst();
-    }
-
-    @Override
-    public void updateCustomerProfileImageId(String profileImageId, Integer customerId) {
-        // TODO: Implement this 😅
     }
 
 }

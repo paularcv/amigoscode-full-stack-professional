@@ -33,7 +33,7 @@ public class CustomerJPADataAccessService implements CustomerDao {
     }
 
     @Override
-    public boolean existsCustomerWithEmail(String email) {
+    public boolean existsPersonWithEmail(String email) {
         return customerRepository.existsCustomerByEmail(email);
     }
 
@@ -50,17 +50,6 @@ public class CustomerJPADataAccessService implements CustomerDao {
     @Override
     public void updateCustomer(Customer update) {
         customerRepository.save(update);
-    }
-
-    @Override
-    public Optional<Customer> selectUserByEmail(String email) {
-        return customerRepository.findCustomerByEmail(email);
-    }
-
-    @Override
-    public void updateCustomerProfileImageId(String profileImageId,
-                                             Integer customerId) {
-        customerRepository.updateProfileImageId(profileImageId, customerId);
     }
 
 }

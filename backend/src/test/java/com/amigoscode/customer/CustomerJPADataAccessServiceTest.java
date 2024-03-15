@@ -1,6 +1,5 @@
 package com.amigoscode.customer;
 
-import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,17 +9,18 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class CustomerJPADataAccessServiceTest {
 
     private CustomerJPADataAccessService underTest;
     private AutoCloseable autoCloseable;
-    @Mock private CustomerRepository customerRepository;
+    @Mock
+    private CustomerRepository customerRepository;
 
     @BeforeEach
     void setUp() {
@@ -65,8 +65,7 @@ class CustomerJPADataAccessServiceTest {
     void insertCustomer() {
         // Given
         Customer customer = new Customer(
-                1, "Ali", "ali@gmail.com", "password", 2,
-                Gender.MALE);
+                1, "Ali", "ali@gmail.com", 2);
 
         // When
         underTest.insertCustomer(customer);
@@ -81,7 +80,7 @@ class CustomerJPADataAccessServiceTest {
         String email = "foo@gmail.com";
 
         // When
-        underTest.existsCustomerWithEmail(email);
+        underTest.existsPersonWithEmail(email);
 
         // Then
         verify(customerRepository).existsCustomerByEmail(email);
@@ -115,26 +114,12 @@ class CustomerJPADataAccessServiceTest {
     void updateCustomer() {
         // Given
         Customer customer = new Customer(
-                1, "Ali", "ali@gmail.com", "password", 2,
-                Gender.MALE);
+                1, "Ali", "ali@gmail.com", 2);
 
         // When
         underTest.updateCustomer(customer);
 
         // Then
         verify(customerRepository).save(customer);
-    }
-
-    @Test
-    void canUpdateProfileImageId() {
-        // Given
-        String profileImageId = "2222";
-        Integer customerId = 1;
-
-        // When
-        underTest.updateCustomerProfileImageId(profileImageId, customerId);
-
-        // Then
-        verify(customerRepository).updateProfileImageId(profileImageId, customerId);
     }
 }
